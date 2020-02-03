@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 Route::get('/news', function () {
-    return view('news/index');
+    return view('news');
 });
 
 Route::get('/auth', function () {
-    return view('auth/index');
+    return view('auth');
 });
