@@ -8,7 +8,7 @@ Route::group([
     'as' => 'admin.'
 ], function () {
     Route::get('/index', 'IndexController@index')->name('admin');
-    Route::get('/test1', 'IndexController@test1')->name('test1');
+    Route::get('/news', 'IndexController@news')->name('news');
     Route::get('/test2', 'IndexController@test2')->name('test2');
 });
 

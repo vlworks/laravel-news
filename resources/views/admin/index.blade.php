@@ -9,5 +9,7 @@
 @endsection
 
 @section('content')
-    <h1>Добро пожаловать Admin!</h1>
+    <div class="container">
+        <h2>Добро пожаловать Admin!</h2>
+    </div>
 @endsection

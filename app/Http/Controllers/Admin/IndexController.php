@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,9 +15,9 @@ class IndexController extends Controller
 
     }
 
-    public function test1()
+    public function news()
     {
-        return view('admin.test1');
+        return view('admin.news', ['category' => News::$category]);
     }
 
     public function test2()
