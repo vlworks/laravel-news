@@ -6,16 +6,23 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index() {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
 
-        $home = route('home');
-        $news = route('news');
-
-        return <<<php
-        <a href='{$home}'>Главная</a>
-        <a href='{$news}'>Новости</a>
-        <h1>Добро пожаловать на главную страницу новостного портала</h1>
-php;
-
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
+    {
+        return view('index');
     }
 }
