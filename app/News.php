@@ -132,4 +132,15 @@ class News extends Model
             'name' => 'politics'
         ]
     ];
+    public static function randNews($count)
+    {
+        $news = [];
+        while(count($news) != $count){
+            $rand = rand(1, (count(static::$news) - 1));
+            if(!in_array(static::$news[$rand], $news)){
+                $news[] = static::$news[$rand];
+            }
+        }
+        return $news;
+    }
 }
