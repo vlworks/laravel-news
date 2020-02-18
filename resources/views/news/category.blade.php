@@ -9,12 +9,19 @@
 @endsection
 
 @section('content')
-    <h2>Категории новостей</h2>
-    @forelse($categories as $item)
-        <div>
-            <h2><a href="{{ route('news.categoryId', $item['name']) }}">{{ $item['category'] }}</a></h2>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 text-center">
+                <ul class="list-group">
+                    <li class="list-group-item active"><h4>Категории новостей</h4></li>
+                    @forelse($categories as $item)
+                    <li class="list-group-item"><a href="{{ route('news.categoryId', $item['name']) }}">{{ $item['category'] }}</a></li>
+                    @empty
+                        <p>Нет категорий</p>
+                    @endforelse
+                </ul>
+            </div>
         </div>
-    @empty
-        <p>Нет категорий</p>
-    @endforelse
+    </div>
 @endsection

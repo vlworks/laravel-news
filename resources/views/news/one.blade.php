@@ -9,11 +9,13 @@
 @endsection
 
 @section('content')
-    @if (!$news['isPrivate'])
-        <h2>{{ $news['title'] }}</h2>
-        <p>{{ $news['text'] }}</p>
-    @else
-        <br>Нет прав!
-    @endif
+    <div class="container">
+        @if (!$news['isPrivate'])
+            <h2>{{ $news['title'] }}</h2>
+            <p>{{ $news['text'] }}</p>
+        @else
+            <br>Нет прав!
+        @endif
+    </div>
 @endsection
 
