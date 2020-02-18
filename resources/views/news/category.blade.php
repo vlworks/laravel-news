@@ -25,3 +25,7 @@
         </div>
     </div>
 @endsection
+
+@section('footer')
+    @include('menu.footer')
+@endsection

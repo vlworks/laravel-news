@@ -8,7 +8,7 @@
                 <a class="p-2 text-dark" href="{{ route('news.categories') }}">Категории</a>
                 <a class="p-2 text-dark" href="{{ route('admin.admin') }}">Админка</a>
             </nav>
-            <a class="btn btn-outline-primary" href="#">Войти</a>
+            <a class="btn btn-outline-primary" href="{{ route('login') }}">Войти</a>
         </div>
     </div>
 </header>
