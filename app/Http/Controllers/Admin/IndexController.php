@@ -15,8 +15,20 @@ class IndexController extends Controller
 
     }
 
-    public function news()
+    public function news(Request $request)
     {
+        $result = $request->only('add');
+        if ($result['add']){
+//            dump($request->only('add'));
+            switch ($result['add']){
+                case 'category':
+                    dump($request->except('add', '_token'));
+                    break;
+                case 'news':
+                    dump($request->except('add', '_token'));
+                    break;
+            }
+        }
         return view('admin.news', ['category' => News::$category]);
     }
 

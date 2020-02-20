@@ -16,6 +16,7 @@
                 <h3>Редактирование новостей</h3>
                 <hr>
             </div>
+
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -23,19 +24,23 @@
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     Добавить категорию
                                 </button>
                             </h2>
                         </div>
-                        <div id="collapseOne" class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id="collapseOne" class="collapse hidden" aria-labelledby="headingOne"
+                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
-                                <form class="needs-validation" novalidate="">
+                                <form action="" class="needs-validation" novalidate="" method="POST">
+                                    {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="newsHeader">Назовите категорию</label>
-                                            <input type="text" class="form-control" id="newsHeader" placeholder="" value="" required="">
+                                            <input type="text" class="form-control" id="newsHeader" placeholder=""
+                                                   value="" required="" name="categoryName">
                                         </div>
                                         <div class="col-md-5 mb-3">
                                             <label for="newsCategory" class="alert-light">Текущие категории</label>
@@ -49,7 +54,8 @@
                                         </div>
                                     </div>
                                     <hr class="mb-4">
-                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Добавить категорию</button>
+                                    <button class="btn btn-primary btn-lg btn-block" type="submit" name="add" value="category">Добавить категорию
+                                    </button>
                                 </form>
                                 <!-- Тело вкладки -->
                             </div>
@@ -58,31 +64,36 @@
                     <div class="card">
                         <div class="card-header" id="headingOne">
                             <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                        data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
                                     Добавить новость
                                 </button>
                             </h2>
                         </div>
-                        <div id="collapseTwo" class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div id="collapseTwo" class="collapse hidden" aria-labelledby="headingOne"
+                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
-                                <form class="needs-validation" novalidate="">
+                                <form action="" method="POST" class="needs-validation" novalidate="">
+                                    {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="newsHeader">Заголовок</label>
-                                            <input type="text" class="form-control" id="newsHeader" placeholder="" value="" required="">
+                                            <input name="newsHeader" type="text" class="form-control" id="newsHeader" placeholder=""
+                                                   value="" required="">
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="newsText">Текст новости</label>
-                                        <textarea type="text" class="form-control" id="newsText" placeholder="" required=""></textarea>
+                                        <textarea name="newsText" type="text" class="form-control" id="newsText" placeholder=""
+                                                  required=""></textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
                                             <label for="newsCategory">Категория</label>
-                                            <select class="custom-select d-block w-100" id="newsCategory" required="">
+                                            <select name="newsCategory" class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
-                                                    <option>{{ $item['category'] }}</option>
+                                                    <option value="{{ $item['id'] }}">{{ $item['category'] }}</option>
                                                 @empty
                                                     <option>Нет категорий ...</option>
                                                 @endforelse
@@ -91,11 +102,13 @@
                                     </div>
                                     <hr class="mb-4">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="newsPrivate">
+                                        <input checked name="isPrivate" value="0" type="hidden" class="custom-control-input">
+                                        <input name="isPrivate" value="1" type="checkbox" class="custom-control-input" id="newsPrivate">
                                         <label class="custom-control-label" for="newsPrivate">Сделать приватной</label>
                                     </div>
                                     <hr class="mb-4">
-                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Добавить новость</button>
+                                    <button name="add" value="news" class="btn btn-primary btn-lg btn-block" type="submit">Добавить новость
+                                    </button>
                                 </form>
                                 <!-- Тело вкладки -->
                             </div>

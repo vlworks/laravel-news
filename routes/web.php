@@ -9,7 +9,7 @@ Route::group([
     'as' => 'admin.'
 ], function () {
     Route::get('/index', 'IndexController@index')->name('admin');
-    Route::get('/news', 'IndexController@news')->name('news');
+    Route::match(['get', 'post'],'/news', 'IndexController@news')->name('news');
     Route::get('/test2', 'IndexController@test2')->name('test2');
 });
 
