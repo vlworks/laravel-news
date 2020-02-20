@@ -30,7 +30,7 @@
                                 </button>
                             </h2>
                         </div>
-                        <div id="collapseOne" class="collapse hidden" aria-labelledby="headingOne"
+                        <div id="collapseOne" class="collapse @if(old('add') === 'category') show @endif" aria-labelledby="headingOne"
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
@@ -40,7 +40,7 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="newsHeader">Назовите категорию</label>
                                             <input type="text" class="form-control" id="newsHeader" placeholder=""
-                                                   value="" required="" name="categoryName">
+                                                   value="{{ old('categoryName') }}" required="" name="categoryName">
                                         </div>
                                         <div class="col-md-5 mb-3">
                                             <label for="newsCategory" class="alert-light">Текущие категории</label>
@@ -70,7 +70,7 @@
                                 </button>
                             </h2>
                         </div>
-                        <div id="collapseTwo" class="collapse hidden" aria-labelledby="headingOne"
+                        <div id="collapseTwo" class="collapse @if(old('add') === 'news') show @endif" aria-labelledby="headingOne"
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
@@ -80,20 +80,20 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="newsHeader">Заголовок</label>
                                             <input name="newsHeader" type="text" class="form-control" id="newsHeader" placeholder=""
-                                                   value="" required="">
+                                                   value="{{ old('newsHeader') }}" required="">
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="newsText">Текст новости</label>
-                                        <textarea name="newsText" type="text" class="form-control" id="newsText" placeholder=""
-                                                  required=""></textarea>
+                                        <textarea name="newsText" rows="5" type="text" class="form-control" id="newsText" placeholder=""
+                                                  required="">{{ old('newsText') }}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
                                             <label for="newsCategory">Категория</label>
                                             <select name="newsCategory" class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
-                                                    <option value="{{ $item['id'] }}">{{ $item['category'] }}</option>
+                                                    <option @if($item['id'] == old('newsCategory')) selected @endif value="{{ $item['id'] }}">{{ $item['category'] }}</option>
                                                 @empty
                                                     <option>Нет категорий ...</option>
                                                 @endforelse
@@ -103,7 +103,7 @@
                                     <hr class="mb-4">
                                     <div class="custom-control custom-checkbox">
                                         <input checked name="isPrivate" value="0" type="hidden" class="custom-control-input">
-                                        <input name="isPrivate" value="1" type="checkbox" class="custom-control-input" id="newsPrivate">
+                                        <input @if(old('isPrivate')) checked @endif name="isPrivate" value="1" type="checkbox" class="custom-control-input" id="newsPrivate">
                                         <label class="custom-control-label" for="newsPrivate">Сделать приватной</label>
                                     </div>
                                     <hr class="mb-4">

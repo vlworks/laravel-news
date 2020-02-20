@@ -19,7 +19,7 @@ class IndexController extends Controller
     {
         $result = $request->only('add');
         if ($result['add']){
-//            dump($request->only('add'));
+            $request->flash();
             switch ($result['add']){
                 case 'category':
                     dump($request->except('add', '_token'));
