@@ -16,7 +16,9 @@
                 @forelse($news as $item)
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm">
-                            <img src="http://placekitten.com/g/200/200" alt="placeholder">
+                            <img src="@if($item->image != 'default') {{ $item->image }}
+                            @else {{ 'http://placekitten.com/g/200/200' }}
+                            @endif" alt="placeholder">
                             <div class="card-body">
                                 <h3>{{ $item->title }}</h3>
 {{--                                <p class="card-text">This is a wider card with supporting text below as a natural--}}

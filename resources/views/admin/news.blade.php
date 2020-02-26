@@ -74,7 +74,7 @@
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
-                                <form action="" method="POST" class="needs-validation" novalidate="">
+                                <form action="" method="POST" class="needs-validation" novalidate="" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
@@ -101,6 +101,10 @@
                                         </div>
                                     </div>
                                     <hr class="mb-4">
+                                    <div class="mb-3">
+                                        <label for="newsText">Загрузить картинку</label><br>
+                                        <input type="file" name="image">
+                                    </div>
                                     <div class="custom-control custom-checkbox">
                                         <input checked name="isPrivate" value="0" type="hidden" class="custom-control-input">
                                         <input @if(old('isPrivate')) checked @endif name="isPrivate" value="1" type="checkbox" class="custom-control-input" id="newsPrivate">

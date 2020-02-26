@@ -6,6 +6,7 @@ use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class IndexController extends Controller
 {
@@ -73,10 +74,18 @@ class IndexController extends Controller
                     return redirect()->route('admin.news')->with('success', 'Категория добавлена');
                     break;
                 case 'news':
+                    // Добавляем изображение
+                    $url = 'default';
+                    if ($request->hasFile('image')) {
+                        $path = Storage::putFile('public', $request->file('image'));
+                        $url = Storage::url($path);
+                    }
+                    // Добавялем даныне в БД
                     DB::table('news')->insert([
                         'title' => $request->newsHeader,
                         'text' => $request->newsText,
-                        'isPrivate' => $request->isPrivate
+                        'isPrivate' => $request->isPrivate,
+                        'image' => $url
                     ]);
                     return redirect()->route('admin.news')->with('success', 'Новость добавлена');
                     break;
