@@ -12,8 +12,7 @@ class NewsController extends Controller
 
     public function news()
     {
-
-        return view('news.all', ['news' => News::$news]);
+        return view('news.all', ['news' => DB::table('news')->get()]);
 
     }
 
@@ -39,12 +38,13 @@ class NewsController extends Controller
 
     public function categories()
     {
-        return view('news.category', ['categories' => News::$category]);
+        return view('news.category', ['categories' => DB::table('category')->get()]);
     }
 
     public function newsOne($id)
     {
         $testId = DB::select('SELECT * FROM news WHERE id = :id', ['id' => $id]);
+        //$testId = DB::table('news')->where('id', $id)->get(); проверить объект на пустоту ?
         if ($testId){
             return view('news.one', ['news' => $testId[0]]);
         }
