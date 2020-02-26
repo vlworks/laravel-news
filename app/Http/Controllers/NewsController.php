@@ -44,7 +44,7 @@ class NewsController extends Controller
     public function newsOne($id)
     {
         $testId = DB::select('SELECT * FROM news WHERE id = :id', ['id' => $id]);
-        //$testId = DB::table('news')->where('id', $id)->get(); проверить объект на пустоту ?
+        //$testId = DB::table('news')->where('id', $id)->get(); проверить объект на пустоту ? find() - не работает
         if ($testId){
             return view('news.one', ['news' => $testId[0]]);
         }
