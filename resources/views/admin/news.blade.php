@@ -46,7 +46,7 @@
                                             <label for="newsCategory" class="alert-light">Текущие категории</label>
                                             <select class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
-                                                    <option class="alert-light">{{ $item['category'] }}</option>
+                                                    <option class="alert-light">{{ $item->category }}</option>
                                                 @empty
                                                     <option class="alert-light">Нет категорий ...</option>
                                                 @endforelse
@@ -93,7 +93,7 @@
                                             <label for="newsCategory">Категория</label>
                                             <select name="newsCategory" class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
-                                                    <option @if($item['id'] == old('newsCategory')) selected @endif value="{{ $item['id'] }}">{{ $item['category'] }}</option>
+                                                    <option @if($item->id == old('newsCategory')) selected @endif value="{{ $item->id }}">{{ $item->category }}</option>
                                                 @empty
                                                     <option>Нет категорий ...</option>
                                                 @endforelse

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -22,23 +23,14 @@ class IndexController extends Controller
             $request->flash();
             switch ($result['add']){
                 case 'category':
-                    $content = \File::get('categories.json');
-                    $json = json_decode($content, true);
-                    $json[] = $request->except('add', '_token');
-                    dump($json);
-                    \File::put('categories.json', json_encode($json, JSON_UNESCAPED_UNICODE));
+
                     break;
                 case 'news':
-                    $content = \File::get('news.json');
-                    $json = json_decode($content, true);
-                    $json[] = $request->except('add', '_token');
-                    dump($json);
-                    \File::put('news.json', json_encode($json, JSON_UNESCAPED_UNICODE));
-                    dump($request->except('add', '_token'));
+
                     break;
             }
         }
-        return view('admin.news', ['category' => News::$category]);
+        return view('admin.news', ['category' => DB::table('category')->get()]);
     }
 
     public function test2()
