@@ -12,7 +12,6 @@ class IndexController extends Controller
 {
     public function index()
     {
-
         return view('admin.index');
 
     }
@@ -60,10 +59,9 @@ class IndexController extends Controller
 
     public function news(Request $request)
     {
-        $result = $request->only('add');
-        if ($result['add']){
+        if (isset($request->add)){
             $request->flash();
-            switch ($result['add']){
+            switch ($request->add){
                 case 'category':
                     $categoryName = $request->categoryName;
                     $transStr = $this->translite($categoryName);
