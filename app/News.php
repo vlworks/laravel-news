@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class News extends Model
 {
@@ -132,15 +133,10 @@ class News extends Model
             'name' => 'politics'
         ]
     ];
-    public static function randNews($count)
+    public static function randNews()
     {
         $news = [];
-        while(count($news) != $count){
-            $rand = rand(1, (count(static::$news) - 1));
-            if(!in_array(static::$news[$rand], $news)){
-                $news[] = static::$news[$rand];
-            }
-        }
+        $news = DB::select('SELECT * FROM news WHERE 1 ORDER BY id DESC LIMIT 3');
         return $news;
     }
 }

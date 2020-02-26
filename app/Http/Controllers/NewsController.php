@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -43,10 +44,13 @@ class NewsController extends Controller
 
     public function newsOne($id)
     {
-        if (array_key_exists($id, News::$news))
-            return view('news.one', ['news' => News::$news[$id]]);
-        else
+        $testId = DB::select('SELECT * FROM news WHERE id = :id', ['id' => $id]);
+        if ($testId){
+            return view('news.one', ['news' => $testId[0]]);
+        }
+        else {
             return redirect(route('news.all'));
+        }
 
     }
 

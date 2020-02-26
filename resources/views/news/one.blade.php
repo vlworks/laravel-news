@@ -10,9 +10,9 @@
 
 @section('content')
     <div class="container">
-        @if (!$news['isPrivate'])
-            <h2>{{ $news['title'] }}</h2>
-            <p>{{ $news['text'] }}</p>
+        @if (!$news->isPrivate)
+            <h2>{{ $news->title }}</h2>
+            <p>{{ $news->text }}</p>
         @else
             <br>Нет прав!
         @endif
