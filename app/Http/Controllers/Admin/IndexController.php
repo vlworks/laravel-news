@@ -66,7 +66,10 @@ class IndexController extends Controller
                 case 'category':
                     $categoryName = $request->categoryName;
                     $transStr = $this->translite($categoryName);
-                    DB::table('category')->insert(['category' => $categoryName, 'name' => $transStr]);
+                    DB::table('category')->insert([
+                        'category' => $categoryName,
+                        'name' => $transStr
+                    ]);
                     return redirect()->route('admin.news')->with('success', 'Категория добавлена');
                     break;
                 case 'news':

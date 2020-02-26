@@ -20,6 +20,8 @@ class CategorySeeder extends Seeder
         $data[] = ['category' => 'Спорт', 'name' => 'sport'];
         $data[] = ['category' => 'Здоровье', 'name' => 'zdorovie'];
         $data[] = ['category' => 'Политика', 'name' => 'politika'];
+        $data[] = ['category' => 'Охота', 'name' => 'ohota'];
+        $data[] = ['category' => 'Рыбалка', 'name' => 'rybalka'];
         return $data;
     }
 }

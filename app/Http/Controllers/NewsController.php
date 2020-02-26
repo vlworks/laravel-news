@@ -12,8 +12,10 @@ class NewsController extends Controller
 
     public function news()
     {
-        return view('news.all', ['news' => DB::table('news')->get()]);
-
+        return view('news.all', [
+            'news' => DB::table('news')
+                            ->orderBy('id', 'desc')
+                            ->get()]);
     }
 
     public function categoryId($id)
