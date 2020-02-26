@@ -70,7 +70,12 @@ class IndexController extends Controller
                     return redirect()->route('admin.news')->with('success', 'Категория добавлена');
                     break;
                 case 'news':
-                    DB::table('news')->insert();
+                    DB::table('news')->insert([
+                        'title' => $request->newsHeader,
+                        'text' => $request->newsText,
+                        'isPrivate' => $request->isPrivate
+                    ]);
+                    return redirect()->route('admin.news')->with('success', 'Новость добавлена');
                     break;
             }
         }
