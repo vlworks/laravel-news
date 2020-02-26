@@ -19,7 +19,7 @@ class CreateNewsTable extends Migration
             $table->text('text')->comment('Содержание новости');
             $table->boolean('isPrivate')
                 ->default(false);
-            //$table->string('image'); доделать
+            $table->string('image')->default('default');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });
