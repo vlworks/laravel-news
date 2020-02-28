@@ -14,8 +14,11 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
-
+        return view('admin.index', ['news' => News::query()
+            ->select('id', 'title')
+            ->orderBy('id', 'desc')
+            ->paginate(5)
+            ]);
     }
 
     private function rus2translit($string) {
