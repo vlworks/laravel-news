@@ -40,7 +40,7 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="сategory">Назовите категорию</label>
                                             <input type="text" class="form-control" id="category" placeholder=""
-                                                   value="{{ old('categoryName') }}" required="" name="category">
+                                                   value="{{ old('category') }}" required="" name="category">
                                         </div>
                                         <div class="col-md-5 mb-3">
                                             <label for="newsCategory" class="alert-light">Текущие категории</label>
