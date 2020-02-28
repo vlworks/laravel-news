@@ -10,9 +10,12 @@
 
 @section('content')
     <div class="container">
-        @if (!$news['isPrivate'])
-            <h2>{{ $news['title'] }}</h2>
-            <p>{{ $news['text'] }}</p>
+        @if (!$news->isPrivate)
+            <img src="@if($news->image != 'default') {{ $news->image }}
+            @else {{ 'http://placekitten.com/g/200/200' }}
+            @endif" alt="placeholder">
+            <h2>{{ $news->title }}</h2>
+            <p>{{ $news->text }}</p>
         @else
             <br>Нет прав!
         @endif

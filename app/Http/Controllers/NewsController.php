@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -11,9 +12,10 @@ class NewsController extends Controller
 
     public function news()
     {
-
-        return view('news.all', ['news' => News::$news]);
-
+        return view('news.all', [
+            'news' => DB::table('news')
+                            ->orderBy('id', 'desc')
+                            ->get()]);
     }
 
     public function categoryId($id)
@@ -38,15 +40,19 @@ class NewsController extends Controller
 
     public function categories()
     {
-        return view('news.category', ['categories' => News::$category]);
+        return view('news.category', ['categories' => DB::table('category')->get()]);
     }
 
     public function newsOne($id)
     {
-        if (array_key_exists($id, News::$news))
-            return view('news.one', ['news' => News::$news[$id]]);
-        else
+        $testId = DB::select('SELECT * FROM news WHERE id = :id', ['id' => $id]);
+        //$testId = DB::table('news')->where('id', $id)->get(); проверить объект на пустоту ? find() - не работает
+        if ($testId){
+            return view('news.one', ['news' => $testId[0]]);
+        }
+        else {
             return redirect(route('news.all'));
+        }
 
     }
 
