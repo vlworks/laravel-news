@@ -74,26 +74,26 @@
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
-                                <form action="" method="POST" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                                <form action="{{ route('admin.news') }}" method="POST" class="needs-validation" novalidate="" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="newsHeader">Заголовок</label>
-                                            <input name="newsHeader" type="text" class="form-control" id="newsHeader" placeholder=""
-                                                   value="{{ old('newsHeader') }}" required="">
+                                            <label for="title">Заголовок</label>
+                                            <input name="title" type="text" class="form-control" id="title" placeholder=""
+                                                   value="{{ old('title') }}" required="">
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="newsText">Текст новости</label>
-                                        <textarea name="newsText" rows="5" type="text" class="form-control" id="newsText" placeholder=""
-                                                  required="">{{ old('newsText') }}</textarea>
+                                        <label for="text">Текст новости</label>
+                                        <textarea name="text" rows="5" type="text" class="form-control" id="text" placeholder=""
+                                                  required="">{{ old('text') }}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
-                                            <label for="newsCategory">Категория</label>
-                                            <select name="newsCategory" class="custom-select d-block w-100" id="newsCategory" required="">
+                                            <label for="newCategory">Категория</label>
+                                            <select name="category" class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
-                                                    <option @if($item->id == old('newsCategory')) selected @endif value="{{ $item->id }}">{{ $item->category }}</option>
+                                                    <option @if($item->id == old('category')) selected @endif value="{{ $item->id }}">{{ $item->category }}</option>
                                                 @empty
                                                     <option>Нет категорий ...</option>
                                                 @endforelse

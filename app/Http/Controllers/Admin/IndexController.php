@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\News;
 use App\oldNews;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -65,12 +66,9 @@ class IndexController extends Controller
                 $request->flash();
                 switch ($request->add){
                     case 'category':
-                        $category = $request->category;
-                        $transStr = $this->translite($category);
-
                         $data = new Category();
-                        $data->category = $category;
-                        $data->name = $transStr;
+                        $data->category = $request->category;
+                        $data->name = $this->translite($request->category);
                         $data->save();
 
                         return redirect()->route('admin.news')->with('success', 'Категория добавлена');
@@ -83,12 +81,12 @@ class IndexController extends Controller
                             $url = Storage::url($path);
                         }
                         // Добавялем даныне в БД
-                        DB::table('news')->insert([
-                            'title' => $request->newsHeader,
-                            'text' => $request->newsText,
-                            'isPrivate' => $request->isPrivate,
-                            'image' => $url
-                        ]);
+
+                        $data = new News();
+                        $data->fill($request->all());
+                        $data->image = $url;
+                        $data->save();
+
                         return redirect()->route('admin.news')->with('success', 'Новость добавлена');
                         break;
                 }
