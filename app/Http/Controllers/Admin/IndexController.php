@@ -60,34 +60,38 @@ class IndexController extends Controller
 
     public function news(Request $request)
     {
-        if (isset($request->add)){
-            $request->flash();
-            switch ($request->add){
-                case 'category':
-                    $categoryName = $request->categoryName;
-                    $transStr = $this->translite($categoryName);
-                    DB::table('category')->insert([
-                        'category' => $categoryName,
-                        'name' => $transStr
-                    ]);
-                    return redirect()->route('admin.news')->with('success', 'Категория добавлена');
-                    break;
-                case 'news':
-                    // Добавляем изображение
-                    $url = 'default';
-                    if ($request->hasFile('image')) {
-                        $path = Storage::putFile('public', $request->file('image'));
-                        $url = Storage::url($path);
-                    }
-                    // Добавялем даныне в БД
-                    DB::table('news')->insert([
-                        'title' => $request->newsHeader,
-                        'text' => $request->newsText,
-                        'isPrivate' => $request->isPrivate,
-                        'image' => $url
-                    ]);
-                    return redirect()->route('admin.news')->with('success', 'Новость добавлена');
-                    break;
+        if($request->isMethod('post')){
+            if (isset($request->add)){
+                $request->flash();
+                switch ($request->add){
+                    case 'category':
+                        $category = $request->category;
+                        $transStr = $this->translite($category);
+
+                        $data = new Category();
+                        $data->category = $category;
+                        $data->name = $transStr;
+                        $data->save();
+
+                        return redirect()->route('admin.news')->with('success', 'Категория добавлена');
+                        break;
+                    case 'news':
+                        // Добавляем изображение
+                        $url = 'default';
+                        if ($request->hasFile('image')) {
+                            $path = Storage::putFile('public', $request->file('image'));
+                            $url = Storage::url($path);
+                        }
+                        // Добавялем даныне в БД
+                        DB::table('news')->insert([
+                            'title' => $request->newsHeader,
+                            'text' => $request->newsText,
+                            'isPrivate' => $request->isPrivate,
+                            'image' => $url
+                        ]);
+                        return redirect()->route('admin.news')->with('success', 'Новость добавлена');
+                        break;
+                }
             }
         }
         return view('admin.news', ['category' => Category::all()]);

@@ -14,27 +14,15 @@ class NewsController extends Controller
     public function news()
     {
         return view('news.all', [
-            'news' => News::all()->sortByDesc('id')]);
+            'news' => News::query()
+                ->where('isPrivate', false)
+                ->orderBy('id', 'desc')
+                ->paginate(5)]);
     }
 
     public function categoryId($id)
     {
-        $news = [];
-
-        foreach (oldNews::$category as $item) {
-           if ($item['name'] == $id) $id = $item['id'];
-        }
-
-        if (array_key_exists($id, oldNews::$category)) {
-            $name = oldNews::$category[$id]['category'];
-            foreach (oldNews::$news as $item) {
-                if ($item['category_id'] == $id)
-                    $news[] = $item;
-            }
-            return view('news.onecategory', ['news' => $news, 'category' => $name]);
-        } else
-            return redirect(route('news.categories'));
-
+        //
     }
 
     public function categories()
@@ -42,17 +30,9 @@ class NewsController extends Controller
         return view('news.category', ['categories' => Category::all()]);
     }
 
-    public function newsOne($id)
+    public function newsOne(News $news)
     {
-        $testId = DB::select('SELECT * FROM news WHERE id = :id', ['id' => $id]);
-        //$testId = DB::table('news')->where('id', $id)->get(); проверить объект на пустоту ? find() - не работает
-        if ($testId){
-            return view('news.one', ['news' => $testId[0]]);
-        }
-        else {
-            return redirect(route('news.all'));
-        }
-
+        return view('news.One', ['news' => $news]);
     }
 
 

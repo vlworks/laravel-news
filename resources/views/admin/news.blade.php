@@ -34,13 +34,13 @@
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
-                                <form action="" class="needs-validation" novalidate="" method="POST">
+                                <form action="{{route('admin.news')}}" class="needs-validation" novalidate="" method="POST">
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
-                                            <label for="newsHeader">Назовите категорию</label>
-                                            <input type="text" class="form-control" id="newsHeader" placeholder=""
-                                                   value="{{ old('categoryName') }}" required="" name="categoryName">
+                                            <label for="сategory">Назовите категорию</label>
+                                            <input type="text" class="form-control" id="category" placeholder=""
+                                                   value="{{ old('categoryName') }}" required="" name="category">
                                         </div>
                                         <div class="col-md-5 mb-3">
                                             <label for="newsCategory" class="alert-light">Текущие категории</label>
