@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\News;
+use App\Category;
+use App\oldNews;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -89,7 +90,7 @@ class IndexController extends Controller
                     break;
             }
         }
-        return view('admin.news', ['category' => DB::table('category')->get()]);
+        return view('admin.news', ['category' => Category::all()]);
     }
 
     public function test2()

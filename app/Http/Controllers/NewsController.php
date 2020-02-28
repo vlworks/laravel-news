@@ -2,33 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\News;
+use App\oldNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
 
-
     public function news()
     {
         return view('news.all', [
-            'news' => DB::table('news')
-                            ->orderBy('id', 'desc')
-                            ->get()]);
+            'news' => News::all()->sortByDesc('id')]);
     }
 
     public function categoryId($id)
     {
         $news = [];
 
-        foreach (News::$category as $item) {
+        foreach (oldNews::$category as $item) {
            if ($item['name'] == $id) $id = $item['id'];
         }
 
-        if (array_key_exists($id, News::$category)) {
-            $name = News::$category[$id]['category'];
-            foreach (News::$news as $item) {
+        if (array_key_exists($id, oldNews::$category)) {
+            $name = oldNews::$category[$id]['category'];
+            foreach (oldNews::$news as $item) {
                 if ($item['category_id'] == $id)
                     $news[] = $item;
             }
@@ -40,7 +39,7 @@ class NewsController extends Controller
 
     public function categories()
     {
-        return view('news.category', ['categories' => DB::table('category')->get()]);
+        return view('news.category', ['categories' => Category::all()]);
     }
 
     public function newsOne($id)
