@@ -100,9 +100,9 @@
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
                                             <label for="newCategory">Категория</label>
-                                            <select name="category" class="custom-select d-block w-100" id="newsCategory" required="">
+                                            <select name="category_id" class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
-                                                    <option @if($item->id == old('category')) selected @endif value="{{ $item->id }}">{{ $item->category }}</option>
+                                                    <option @if($item->id == old('category_id')) selected @endif value="{{ $item->id }}">{{ $item->category }}</option>
                                                 @empty
                                                     <option>Нет категорий ...</option>
                                                 @endforelse
