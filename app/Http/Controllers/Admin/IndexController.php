@@ -98,6 +98,11 @@ class IndexController extends Controller
         return view('admin.news', ['category' => Category::all()]);
     }
 
+    public function deleteNews (News $news) {
+        $news->delete();
+        return redirect()->route('admin.admin')->with('success', 'Новость удалена');
+    }
+
     public function test2()
     {
         return view('admin.test2');
