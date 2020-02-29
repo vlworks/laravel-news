@@ -14,10 +14,10 @@
         <div class="row justify-content-center">
             <div class="col-md-4 text-center">
                 <ul class="list-group">
-                    <li class="list-group-item active"><h4>Категории новостей <small>(категории выводятся из базы но ссылки отключены)</small></h4></li>
+                    <li class="list-group-item active"><h4>Категории новостей</h4></li>
                     @forelse($categories as $item)
                     <li class="list-group-item">
-                        <a class="btn disabled" aria-disabled="true" href="{{ route('news.categoryId', $item->name) }}">{{ $item->category }}</a>
+                        <a class="btn" href="{{ route('news.categoryId', $item->name) }}">{{ $item->category }}</a>
                     </li>
                     @empty
                         <p>Нет категорий</p>
