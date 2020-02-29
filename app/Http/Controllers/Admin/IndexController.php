@@ -103,6 +103,29 @@ class IndexController extends Controller
         return redirect()->route('admin.admin')->with('success', 'Новость удалена');
     }
 
+    public function editNews (News $news) {
+        return view('admin.news', [
+            'news' => $news,
+            'category' => Category::all()
+        ]);
+    }
+
+    public function saveNews (News $news, Request $request) {
+        if($request->isMethod('post')){
+            $news->fill($request->all());
+
+            if ($request->file('image')) {
+                $path = Storage::putFile('public', $request->file('image'));
+                $url = Storage::url($path);
+                $news->image = $url;
+            }
+
+            $news->save();
+
+            return redirect()->route('admin.admin')->with('success', 'Новость изменена');
+        }
+    }
+
     public function test2()
     {
         return view('admin.test2');

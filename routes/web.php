@@ -12,6 +12,8 @@ Route::group([
     Route::match(['get', 'post'],'/news', 'IndexController@news')->name('news');
     Route::get('/test2', 'IndexController@test2')->name('test2');
     Route::get('/deleteNews/{news}', 'IndexController@deleteNews')->name('deleteNews');
+    Route::get('/editNews/{news}', 'IndexController@editNews')->name('editNews');
+    Route::match(['get', 'post'],'/saveNews/{news}', 'IndexController@saveNews')->name('saveNews');
 });
 
 Route::group(

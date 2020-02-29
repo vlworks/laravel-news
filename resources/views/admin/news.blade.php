@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
@@ -66,7 +65,11 @@
                             <h2 class="mb-0">
                                 <button class="btn btn-link" type="button" data-toggle="collapse"
                                         data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
-                                    Добавить новость
+                                    @if($news->id)
+                                        Редактировать новость
+                                    @else
+                                        Добавить новость
+                                    @endif
                                 </button>
                             </h2>
                         </div>
@@ -74,19 +77,25 @@
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->
-                                <form action="{{ route('admin.news') }}" method="POST" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                                <form action="
+                                @if($news->id)
+                                    {{ route('admin.saveNews', $news) }}
+                                @else
+                                    {{ route('admin.news') }}
+                                @endif
+                                " method="POST" class="needs-validation" novalidate="" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="title">Заголовок</label>
                                             <input name="title" type="text" class="form-control" id="title" placeholder=""
-                                                   value="{{ old('title') }}" required="">
+                                                   value="{{ old('title') ?? $news->title }}" required="">
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="text">Текст новости</label>
                                         <textarea name="text" rows="5" type="text" class="form-control" id="text" placeholder=""
-                                                  required="">{{ old('text') }}</textarea>
+                                                  required="">{{ old('text') ?? $news->text}}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
@@ -107,11 +116,16 @@
                                     </div>
                                     <div class="custom-control custom-checkbox">
                                         <input checked name="isPrivate" value="0" type="hidden" class="custom-control-input">
-                                        <input @if(old('isPrivate')) checked @endif name="isPrivate" value="1" type="checkbox" class="custom-control-input" id="newsPrivate">
+                                        <input @if(old('isPrivate') || $news->isPrivate) checked @endif name="isPrivate" value="1" type="checkbox" class="custom-control-input" id="newsPrivate">
                                         <label class="custom-control-label" for="newsPrivate">Сделать приватной</label>
                                     </div>
                                     <hr class="mb-4">
-                                    <button name="add" value="news" class="btn btn-primary btn-lg btn-block" type="submit">Добавить новость
+                                    <button name="add" value="news" class="btn btn-primary btn-lg btn-block" type="submit">
+                                        @if($news->id)
+                                            Редактировать новость
+                                        @else
+                                        Добавить новость
+                                        @endif
                                     </button>
                                 </form>
                                 <!-- Тело вкладки -->
