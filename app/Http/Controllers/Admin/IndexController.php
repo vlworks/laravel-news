@@ -62,7 +62,7 @@ class IndexController extends Controller
         return $str;
     }
 
-    public function news(Request $request)
+    public function news(Request $request, News $news)
     {
         if($request->isMethod('post')){
             if (isset($request->add)){
@@ -85,17 +85,19 @@ class IndexController extends Controller
                         }
                         // Добавялем даныне в БД
 
-                        $data = new News();
-                        $data->fill($request->all());
-                        $data->image = $url;
-                        $data->save();
+                        $news->fill($request->all());
+                        $news->image = $url;
+                        $news->save();
 
                         return redirect()->route('admin.news')->with('success', 'Новость добавлена');
                         break;
                 }
             }
         }
-        return view('admin.news', ['category' => Category::all()]);
+        return view('admin.news', [
+            'news' => $news,
+            'category' => Category::all()
+        ]);
     }
 
     public function deleteNews (News $news) {
