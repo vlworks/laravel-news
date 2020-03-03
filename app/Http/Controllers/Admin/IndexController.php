@@ -83,7 +83,8 @@ class IndexController extends Controller
                             $path = Storage::putFile('public', $request->file('image'));
                             $url = Storage::url($path);
                         }
-                        // Добавялем даныне в БД
+
+                        $this->validate($request, News::rules());
 
                         $news->fill($request->all());
                         $news->image = $url;
@@ -114,6 +115,9 @@ class IndexController extends Controller
 
     public function saveNews (News $news, Request $request) {
         if($request->isMethod('post')){
+
+            $this->validate($request, News::rules());
+
             $news->fill($request->all());
 
             if ($request->file('image')) {

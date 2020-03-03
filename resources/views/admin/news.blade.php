@@ -88,18 +88,39 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="title">Заголовок</label>
+                                            @if ($errors->has('title'))
+                                                <div class="alert alert-danger" role="alert">
+                                                    @foreach ($errors->get('title') as $error)
+                                                        {{ $error }}
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                             <input name="title" type="text" class="form-control" id="title" placeholder=""
                                                    value="{{ old('title') ?? $news->title }}" required="">
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="text">Текст новости</label>
+                                        @if ($errors->has('text'))
+                                            <div class="alert alert-danger" role="alert">
+                                                @foreach ($errors->get('text') as $error)
+                                                    {{ $error }}
+                                                @endforeach
+                                            </div>
+                                        @endif
                                         <textarea name="text" rows="5" type="text" class="form-control" id="text" placeholder=""
                                                   required="">{{ old('text') ?? $news->text}}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
                                             <label for="newCategory">Категория</label>
+                                            @if ($errors->has('category'))
+                                                <div class="alert alert-danger" role="alert">
+                                                    @foreach ($errors->get('category') as $error)
+                                                        {{ $error }}
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                             <select name="category_id" class="custom-select d-block w-100" id="newsCategory" required="">
                                                 @forelse($category as $item)
                                                     <option @if($item->id == old('category_id')) selected @endif value="{{ $item->id }}">{{ $item->category }}</option>
@@ -112,6 +133,13 @@
                                     <hr class="mb-4">
                                     <div class="mb-3">
                                         <label for="newsText">Загрузить картинку</label><br>
+                                        @if ($errors->has('image'))
+                                            <div class="alert alert-danger" role="alert">
+                                                @foreach ($errors->get('image') as $error)
+                                                    {{ $error }}
+                                                @endforeach
+                                            </div>
+                                        @endif
                                         <input type="file" name="image">
                                     </div>
                                     <div class="custom-control custom-checkbox">
