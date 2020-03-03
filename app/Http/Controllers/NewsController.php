@@ -24,7 +24,6 @@ class NewsController extends Controller
     {
         $cat = Category::query()->select(['id', 'category'])->where('name', $id)->get();
         $news = Category::query()->find($cat[0]->id)->news()->paginate(5);
-
         return view('news.onecategory', ['news' => $news, 'category' => $cat[0]->category]);
     }
 
