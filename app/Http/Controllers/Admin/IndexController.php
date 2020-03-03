@@ -84,7 +84,7 @@ class IndexController extends Controller
                             $url = Storage::url($path);
                         }
 
-                        $this->validate($request, News::rules());
+                        $this->validate($request, News::rules(), [], News::attributeNames());
 
                         $news->fill($request->all());
                         $news->image = $url;
@@ -116,7 +116,7 @@ class IndexController extends Controller
     public function saveNews (News $news, Request $request) {
         if($request->isMethod('post')){
 
-            $this->validate($request, News::rules());
+            $this->validate($request, News::rules(), [], News::attributeNames());
 
             $news->fill($request->all());
 
