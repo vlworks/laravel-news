@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\News;
+use App\oldNews;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +14,11 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
-
+        return view('admin.index', ['news' => News::query()
+            ->select('id', 'title')
+            ->orderBy('id', 'desc')
+            ->paginate(5)
+            ]);
     }
 
     private function rus2translit($string) {
@@ -57,39 +62,70 @@ class IndexController extends Controller
         return $str;
     }
 
-    public function news(Request $request)
+    public function news(Request $request, News $news)
     {
-        if (isset($request->add)){
-            $request->flash();
-            switch ($request->add){
-                case 'category':
-                    $categoryName = $request->categoryName;
-                    $transStr = $this->translite($categoryName);
-                    DB::table('category')->insert([
-                        'category' => $categoryName,
-                        'name' => $transStr
-                    ]);
-                    return redirect()->route('admin.news')->with('success', 'Категория добавлена');
-                    break;
-                case 'news':
-                    // Добавляем изображение
-                    $url = 'default';
-                    if ($request->hasFile('image')) {
-                        $path = Storage::putFile('public', $request->file('image'));
-                        $url = Storage::url($path);
-                    }
-                    // Добавялем даныне в БД
-                    DB::table('news')->insert([
-                        'title' => $request->newsHeader,
-                        'text' => $request->newsText,
-                        'isPrivate' => $request->isPrivate,
-                        'image' => $url
-                    ]);
-                    return redirect()->route('admin.news')->with('success', 'Новость добавлена');
-                    break;
+        if($request->isMethod('post')){
+            if (isset($request->add)){
+                $request->flash();
+                switch ($request->add){
+                    case 'category':
+                        $data = new Category();
+                        $data->category = $request->category;
+                        $data->name = $this->translite($request->category);
+                        $data->save();
+
+                        return redirect()->route('admin.news')->with('success', 'Категория добавлена');
+                        break;
+                    case 'news':
+                        // Добавляем изображение
+                        $url = 'default';
+                        if ($request->hasFile('image')) {
+                            $path = Storage::putFile('public', $request->file('image'));
+                            $url = Storage::url($path);
+                        }
+                        // Добавялем даныне в БД
+
+                        $news->fill($request->all());
+                        $news->image = $url;
+                        $news->save();
+
+                        return redirect()->route('admin.news')->with('success', 'Новость добавлена');
+                        break;
+                }
             }
         }
-        return view('admin.news', ['category' => DB::table('category')->get()]);
+        return view('admin.news', [
+            'news' => $news,
+            'category' => Category::all()
+        ]);
+    }
+
+    public function deleteNews (News $news) {
+        $news->delete();
+        return redirect()->route('admin.admin')->with('success', 'Новость удалена');
+    }
+
+    public function editNews (News $news) {
+        return view('admin.news', [
+            'news' => $news,
+            'category' => Category::all()
+        ]);
+    }
+
+    public function saveNews (News $news, Request $request) {
+        if($request->isMethod('post')){
+            $news->fill($request->all());
+
+            if ($request->file('image')) {
+                $path = Storage::putFile('public', $request->file('image'));
+                $url = Storage::url($path);
+                $news->image = $url;
+            }
+
+            $news->save();
+
+            return redirect()->route('admin.admin')->with('success', 'Новость изменена');
+        }
     }
 
     public function test2()

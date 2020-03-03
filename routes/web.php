@@ -11,6 +11,9 @@ Route::group([
     Route::get('/index', 'IndexController@index')->name('admin');
     Route::match(['get', 'post'],'/news', 'IndexController@news')->name('news');
     Route::get('/test2', 'IndexController@test2')->name('test2');
+    Route::get('/deleteNews{news}', 'IndexController@deleteNews')->name('deleteNews');
+    Route::get('/editNews{news}', 'IndexController@editNews')->name('editNews');
+    Route::post('/saveNews{news}', 'IndexController@saveNews')->name('saveNews');
 });
 
 Route::group(
@@ -19,7 +22,7 @@ Route::group(
         'as' => 'news.'
     ], function () {
     Route::get('/all', 'NewsController@news')->name('all');
-    Route::get('/one/{id}', 'NewsController@newsOne')->name('One');
+    Route::get('/one/{news}', 'NewsController@newsOne')->name('One');
     Route::get('/categories', 'NewsController@categories')->name('categories');
     Route::get('/category/{id}', 'NewsController@categoryId')->name('categoryId');
 }

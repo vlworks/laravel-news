@@ -29,7 +29,7 @@
                                             <a href="{{ route('news.One', $item->id) }}" type="button" class="btn btn-sm btn-outline-secondary">Подробнее</a>
                                         </div>
                                     @endif
-                                    <small class="text-muted">9 mins</small>
+                                    <small class="text-muted">{{ $item->category_id }}</small>
                                 </div>
                             </div>
                         </div>
@@ -37,6 +37,9 @@
                 @empty
                     <p>Нет новостей</p>
                 @endforelse
+            </div>
+            <div class="row">
+                {{ $news->links() }}
             </div>
         </div>
     </div>
