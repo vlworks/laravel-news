@@ -25,15 +25,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                @forelse($news as $item)
+                @foreach($news as $item)
                 <tr>
                     <th scope="row">{{ $item->id }}</th>
                     <td>{{ $item->title }}</td>
                     <td><a href="{{ route('admin.editNews', $item->id) }}" class="btn btn-warning">Edit</a></td>
                     <td><a href="{{ route('admin.deleteNews', $item->id) }}" class="btn btn-danger">Delete</a></td>
                 </tr>
-                    @empty('Нет новостей')
-                @endforelse
+                @endforeach
                 </tbody>
             </table>
             {{ $news->links() }}
