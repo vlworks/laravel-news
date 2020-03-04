@@ -21,7 +21,7 @@ class Category extends Model
 
     public static function attributeNames() {
         return [
-            'category' => 'Заголовок категории',
+            'category' => 'Назовите категорию',
         ];
     }
 }

@@ -69,7 +69,7 @@ class IndexController extends Controller
                 $request->flash();
                 switch ($request->add){
                     case 'category':
-                        $this->validate($request, Category::rules(), [], News::attributeNames());
+                        $this->validate($request, Category::rules(), [], Category::attributeNames());
 
                         $data = new Category();
                         $data->category = $request->category;

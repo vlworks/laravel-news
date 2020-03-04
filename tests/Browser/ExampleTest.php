@@ -20,4 +20,12 @@ class ExampleTest extends DuskTestCase
                     ->assertSee('Новостной агрегатор');
         });
     }
+
+    public function testNewExample()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')
+                ->assertSee('Новостной агрегатор');
+        });
+    }
 }
