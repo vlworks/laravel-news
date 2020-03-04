@@ -17,7 +17,9 @@ class AddCategoryTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/admin/news')
-                    ->assertSee('Laravel');
+                    ->type('category', '123')
+                    ->press('Добавить категорию')
+                    ->assertSee('Поле Назовите категорию обязательно для заполнения.');
         });
     }
 }
