@@ -69,6 +69,8 @@ class IndexController extends Controller
                 $request->flash();
                 switch ($request->add){
                     case 'category':
+                        $this->validate($request, Category::rules(), [], News::attributeNames());
+
                         $data = new Category();
                         $data->category = $request->category;
                         $data->name = $this->translite($request->category);

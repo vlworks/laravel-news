@@ -38,6 +38,13 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <label for="сategory">Назовите категорию</label>
+                                            @if ($errors->has('category'))
+                                                <div class="alert alert-danger" role="alert">
+                                                    @foreach ($errors->get('category') as $error)
+                                                        {{ $error }}
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                             <input type="text" class="form-control" id="category" placeholder=""
                                                    value="{{ old('category') }}" required="" name="category">
                                         </div>

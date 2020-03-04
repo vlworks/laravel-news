@@ -11,4 +11,17 @@ class Category extends Model
     public function news() {
         return $this->hasMany(News::class, 'category_id');
     }
+
+    public static function rules() {
+        $tableNameCategory = (new Category())->getTable();
+        return [
+            'category' => 'required|min:5|max:255',
+        ];
+    }
+
+    public static function attributeNames() {
+        return [
+            'category' => 'Заголовок категории',
+        ];
+    }
 }
