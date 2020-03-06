@@ -18,6 +18,7 @@ class AlterTableUsersIsAdmin extends Migration
                 ->default(false)
                 ->comment('Админ ли это');
         });
+        (new UserSeeder())->run();
     }
 
     /**
