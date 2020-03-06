@@ -11,8 +11,7 @@ Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
     'as' => 'admin.',
-    'middleware' => 'auth'
-//    'middleware' => ['auth', 'is_admin']
+    'middleware' => ['auth', 'is_admin']
 ], function () {
     Route::get('/index', 'IndexController@index')->name('admin');
     Route::match(['get', 'post'],'/news', 'IndexController@news')->name('news');
