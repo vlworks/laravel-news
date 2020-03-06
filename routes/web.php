@@ -4,8 +4,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/login', 'Auth\LoginController@login');
+//Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::post('/login', 'Auth\LoginController@login');
 
 Route::group([
     'prefix' => 'admin',
@@ -32,6 +32,8 @@ Route::group(
     Route::get('/category/{id}', 'NewsController@categoryId')->name('categoryId');
 }
 );
+
+Route::match(['get', 'post'], '/profile', 'ProfileController@index')->name('profile')->middleware('auth');
 
 
 
