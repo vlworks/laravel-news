@@ -59,7 +59,7 @@
                             <th scope="row">{{ $item->id }}</th>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
-                            <td><a href="" class="btn btn-warning">Edit</a></td>
+                            <td><a href="{{ route('admin.editUser', $item->id) }}" class="btn btn-warning">Edit</a></td>
                             <td><a href="{{ route('admin.deleteUser', $item->id) }}" class="btn btn-danger">Delete</a></td>
                             <td>
                                 @if($item->is_admin)

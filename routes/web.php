@@ -24,6 +24,8 @@ Route::group([
     Route::get('/removeAdmin/{user}', 'IndexController@removeAdmin')->name('removeAdmin');
     /* user control*/
     Route::get('/deleteUser/{user}', 'IndexController@deleteUser')->name('deleteUser');
+    Route::get('/editUser/{user}', 'IndexController@editUser')->name('editUser');
+    Route::post('/saveUser/{user}', 'IndexController@saveUser')->name('saveUser');
 });
 
 Route::group(

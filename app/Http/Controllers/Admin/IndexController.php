@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class IndexController extends Controller
@@ -168,6 +169,31 @@ class IndexController extends Controller
         $user->delete();
 
         return redirect()->route('admin.admin')->with('success', 'Пользователь удален');
+    }
+
+    public function editUser (User $user)
+    {
+        return view('admin.editUser', [
+           'user' => $user
+        ]);
+    }
+
+    public function saveUser (User $user, Request $request)
+    {
+        if ($request->isMethod('post')){
+            $errors = [];
+            $isEmail = User::query()
+                ->select('id')
+                ->where('email', '=', $request->email)
+                ->get();
+            if ($isEmail->isEmpty()){
+                $user->fill($request->all())->save();
+                return redirect()->route('admin.admin')->with('success', 'Пользователь изменен');
+            } else {
+                $errors['email'][] = 'Email занят';
+                return redirect()->route('admin.editUser', ['user' => $user])->withErrors($errors);
+            }
+        }
     }
 
 }
