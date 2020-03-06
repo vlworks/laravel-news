@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\News;
 use App\oldNews;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,15 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('admin.index', ['news' => News::query()
-            ->select('id', 'title')
-            ->orderBy('id', 'desc')
-            ->paginate(5)
+        return view('admin.index', [
+            'news' => News::query()
+                ->select('id', 'title')
+                ->orderBy('id', 'desc')
+                ->paginate(5),
+            'users' => User::query()
+                ->select('id', 'name', 'email')
+                ->orderBy('id', 'desc')
+                ->paginate(5),
             ]);
     }
 

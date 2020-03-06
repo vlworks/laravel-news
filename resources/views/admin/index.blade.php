@@ -12,9 +12,9 @@
     <div class="container">
         <h2>Добро пожаловать Admin!</h2>
     </div>
-
     <div class="news">
         <div class="container">
+            <h3>Новости:</h3>
             <table class="table table-hover table-sm">
                 <thead>
                 <tr>
@@ -36,6 +36,34 @@
                 </tbody>
             </table>
             {{ $news->links() }}
+        </div>
+    </div>
+    <div class="users">
+        <div class="container">
+            <h3>Пользователи</h3>
+            <table class="table table-hover table-sm">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Пользователь</th>
+                    <th scope="col">email</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($users as $item)
+                    <tr>
+                        <th scope="row">{{ $item->id }}</th>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td><a href="" class="btn btn-warning">Edit</a></td>
+                        <td><a href="" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            {{ $users->links() }}
         </div>
     </div>
 
