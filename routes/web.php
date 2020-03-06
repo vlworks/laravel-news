@@ -1,12 +1,15 @@
 <?php
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/login', 'HomeController@login')->name('login');
+
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
 
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    'as' => 'admin.'
+    'as' => 'admin.',
+    'middleware' => ['auth', 'is_admin']
 ], function () {
     Route::get('/index', 'IndexController@index')->name('admin');
     Route::match(['get', 'post'],'/news', 'IndexController@news')->name('news');
