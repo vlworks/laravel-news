@@ -21,7 +21,7 @@ class IndexController extends Controller
                 ->orderBy('id', 'desc')
                 ->paginate(5),
             'users' => User::query()
-                ->select('id', 'name', 'email')
+                ->select('id', 'name', 'email', 'is_admin')
                 ->orderBy('id', 'desc')
                 ->paginate(5),
             ]);
@@ -141,7 +141,33 @@ class IndexController extends Controller
     public function test2()
     {
         return view('admin.test2');
+    }
 
+    /* ADMIN CONTROL */
+
+    public function letAdmin(User $user)
+    {
+        $user->is_admin = true;
+        $user->save();
+
+        return redirect()->route('admin.admin')->with('success', 'Права назначены');
+    }
+
+    public function removeAdmin(User $user)
+    {
+        $user->is_admin = false;
+        $user->save();
+
+        return redirect()->route('admin.admin')->with('success', 'Права убраны');
+    }
+
+    /* USER CONTROL */
+
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('admin.admin')->with('success', 'Пользователь удален');
     }
 
 }

@@ -19,6 +19,11 @@ Route::group([
     Route::get('/deleteNews{news}', 'IndexController@deleteNews')->name('deleteNews');
     Route::get('/editNews{news}', 'IndexController@editNews')->name('editNews');
     Route::post('/saveNews{news}', 'IndexController@saveNews')->name('saveNews');
+    /* admin control */
+    Route::get('/letAdmin/{user}', 'IndexController@letAdmin')->name('letAdmin');
+    Route::get('/removeAdmin/{user}', 'IndexController@removeAdmin')->name('removeAdmin');
+    /* user control*/
+    Route::get('/deleteUser/{user}', 'IndexController@deleteUser')->name('deleteUser');
 });
 
 Route::group(

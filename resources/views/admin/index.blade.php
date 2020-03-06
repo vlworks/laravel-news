@@ -49,17 +49,27 @@
                     <th scope="col">email</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($users as $item)
-                    <tr>
-                        <th scope="row">{{ $item->id }}</th>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td><a href="" class="btn btn-warning">Edit</a></td>
-                        <td><a href="" class="btn btn-danger">Delete</a></td>
-                    </tr>
+                    @if($item->name != 'admin')
+                        <tr>
+                            <th scope="row">{{ $item->id }}</th>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td><a href="" class="btn btn-warning">Edit</a></td>
+                            <td><a href="{{ route('admin.deleteUser', $item->id) }}" class="btn btn-danger">Delete</a></td>
+                            <td>
+                                @if($item->is_admin)
+                                    <a class="btn btn-danger" href="{{ route('admin.removeAdmin', $item->id) }}">Удалить права</a>
+                                @else
+                                    <a class="btn btn-warning" href="{{ route('admin.letAdmin', $item->id) }}">Сделать администратором</a>
+                                @endif
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>
