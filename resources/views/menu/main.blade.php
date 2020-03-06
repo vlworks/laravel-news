@@ -6,7 +6,10 @@
                 <a class="p-2 text-dark active" href="{{ route('home') }}">Главная</a>
                 <a class="p-2 text-dark" href="{{ route('news.all') }}">Новости</a>
                 <a class="p-2 text-dark" href="{{ route('news.categories') }}">Категории</a>
+                @if(!empty(Auth::user()->is_admin))
                 <a class="p-2 text-dark" href="{{ route('admin.admin') }}">Админка</a>
+                @else
+                @endif
             </nav>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">

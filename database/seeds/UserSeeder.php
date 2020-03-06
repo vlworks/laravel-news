@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             $data[] = [
                 'name' => 'stest' . $i,
                 'email' => 'stest' . $i . '@mail.ru',
-                'password' => Hash::make('test' . $i)
+                'password' => Hash::make('12345678')
             ];
         }
 
