@@ -1,12 +1,17 @@
 <?php
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/login', 'HomeController@login')->name('login');
+
+Auth::routes();
+
+//Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::post('/login', 'Auth\LoginController@login');
 
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    'as' => 'admin.'
+    'as' => 'admin.',
+    'middleware' => ['auth', 'is_admin']
 ], function () {
     Route::get('/index', 'IndexController@index')->name('admin');
     Route::match(['get', 'post'],'/news', 'IndexController@news')->name('news');
@@ -14,6 +19,13 @@ Route::group([
     Route::get('/deleteNews{news}', 'IndexController@deleteNews')->name('deleteNews');
     Route::get('/editNews{news}', 'IndexController@editNews')->name('editNews');
     Route::post('/saveNews{news}', 'IndexController@saveNews')->name('saveNews');
+    /* admin control */
+    Route::get('/letAdmin/{user}', 'IndexController@letAdmin')->name('letAdmin');
+    Route::get('/removeAdmin/{user}', 'IndexController@removeAdmin')->name('removeAdmin');
+    /* user control*/
+    Route::get('/deleteUser/{user}', 'IndexController@deleteUser')->name('deleteUser');
+    Route::get('/editUser/{user}', 'IndexController@editUser')->name('editUser');
+    Route::post('/saveUser/{user}', 'IndexController@saveUser')->name('saveUser');
 });
 
 Route::group(
@@ -28,7 +40,9 @@ Route::group(
 }
 );
 
+Route::match(['get', 'post'], '/profile', 'ProfileController@index')->name('profile')->middleware('auth');
 
 
-//Auth::routes();
+
+
 

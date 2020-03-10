@@ -73,7 +73,7 @@
                                 </button>
                             </h2>
                         </div>
-                        <div id="collapseTwo" class="collapse @if(old('add') === 'news') show @endif" aria-labelledby="headingOne"
+                        <div id="collapseTwo" class="collapse @if(old('add') === 'news' || request()->routeIs('admin.editNews')) show @endif" aria-labelledby="headingOne"
                              data-parent="#accordionExample">
                             <div class="card-body">
                                 <!-- Тело вкладки -->

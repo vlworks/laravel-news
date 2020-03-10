@@ -5,19 +5,26 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\News;
 use App\oldNews;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class IndexController extends Controller
 {
     public function index()
     {
-        return view('admin.index', ['news' => News::query()
-            ->select('id', 'title')
-            ->orderBy('id', 'desc')
-            ->paginate(5)
+        return view('admin.index', [
+            'news' => News::query()
+                ->select('id', 'title')
+                ->orderBy('id', 'desc')
+                ->paginate(5),
+            'users' => User::query()
+                ->select('id', 'name', 'email', 'is_admin')
+                ->orderBy('id', 'desc')
+                ->paginate(5),
             ]);
     }
 
@@ -135,7 +142,58 @@ class IndexController extends Controller
     public function test2()
     {
         return view('admin.test2');
+    }
 
+    /* ADMIN CONTROL */
+
+    public function letAdmin(User $user)
+    {
+        $user->is_admin = true;
+        $user->save();
+
+        return redirect()->route('admin.admin')->with('success', 'Права назначены');
+    }
+
+    public function removeAdmin(User $user)
+    {
+        $user->is_admin = false;
+        $user->save();
+
+        return redirect()->route('admin.admin')->with('success', 'Права убраны');
+    }
+
+    /* USER CONTROL */
+
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('admin.admin')->with('success', 'Пользователь удален');
+    }
+
+    public function editUser (User $user)
+    {
+        return view('admin.editUser', [
+           'user' => $user
+        ]);
+    }
+
+    public function saveUser (User $user, Request $request)
+    {
+        if ($request->isMethod('post')){
+            $errors = [];
+            $isEmail = User::query()
+                ->select('id')
+                ->where('email', '=', $request->email)
+                ->get();
+            if ($isEmail->isEmpty()){
+                $user->fill($request->all())->save();
+                return redirect()->route('admin.admin')->with('success', 'Пользователь изменен');
+            } else {
+                $errors['email'][] = 'Email занят';
+                return redirect()->route('admin.editUser', ['user' => $user])->withErrors($errors);
+            }
+        }
     }
 
 }
