@@ -26,10 +26,11 @@
                                 <h3>{{ $item->title }}</h3>
 {{--                                <p class="card-text">{{ $item['text'] }}</p>--}}
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="{{route('news.One', $item->id)}}" class="btn btn-sm btn-outline-secondary">Подробнее</a>
-{{--                                        <button type="button" class="btn btn-sm btn-outline-secondary nav-link disabled">Редактировать</button>--}}
-                                    </div>
+                                    @if (!$item->isPrivate || Auth::id())
+                                        <div class="btn-group">
+                                            <a href="{{ route('news.One', $item->id) }}" type="button" class="btn btn-sm btn-outline-secondary">Подробнее</a>
+                                        </div>
+                                    @endif
                                     <small class="text-muted">9 mins</small>
                                 </div>
                             </div>

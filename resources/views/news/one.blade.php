@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="container">
-        @if (!$news->isPrivate)
+        @if (!$news->isPrivate || Auth::id())
             <img src="@if($news->image != 'default') {{ $news->image }}
             @else {{ 'http://placekitten.com/g/200/200' }}
             @endif" alt="placeholder">

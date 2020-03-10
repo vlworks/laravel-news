@@ -15,7 +15,6 @@ class NewsController extends Controller
     {
         return view('news.all', [
             'news' => News::query()
-                ->where('isPrivate', false)
                 ->orderBy('id', 'desc')
                 ->paginate(5)]);
     }
