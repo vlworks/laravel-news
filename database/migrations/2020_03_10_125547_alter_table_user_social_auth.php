@@ -20,6 +20,9 @@ class AlterTableUserSocialAuth extends Migration
            $table->string('social')
                ->default('site')
                ->comment('Тип авторизации');
+           $table->string('avatar')
+               ->default('')
+               ->comment('Аватар');
         });
     }
 
@@ -31,7 +34,7 @@ class AlterTableUserSocialAuth extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table){
-            $table->dropColumn(['social_id', 'social']);
+            $table->dropColumn(['social_id', 'social', 'avatar']);
         });
     }
 }
