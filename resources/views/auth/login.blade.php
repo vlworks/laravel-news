@@ -64,6 +64,16 @@
                                 @endif
                             </div>
                         </div>
+                        <br>
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <label for="">Войти через:</label>
+                                <br>
+                                <a href="{{ route('oauth', 'facebook') }}" class="btn btn-primary">
+                                    Facebook
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
