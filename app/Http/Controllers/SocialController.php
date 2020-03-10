@@ -10,10 +10,16 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialController extends Controller
 {
     public function auth($social){
+        if (Auth::id()) {
+            return redirect()->route('home');
+        }
         return Socialite::driver($social)->redirect();
     }
 
     public function callback($social){
+        if (Auth::id()) {
+            return redirect()->route('home');
+        }
         $getInfo = Socialite::driver($social)->user();
         $user = $this->createUser($getInfo, $social);
         Auth::login($user);

@@ -30,6 +30,8 @@ Route::group([
     Route::get('/deleteUser/{user}', 'IndexController@deleteUser')->name('deleteUser');
     Route::get('/editUser/{user}', 'IndexController@editUser')->name('editUser');
     Route::post('/saveUser/{user}', 'IndexController@saveUser')->name('saveUser');
+    /* Parser */
+    Route::get('/parser', 'ParserController@index')->name('parser');
 });
 
 Route::group(
