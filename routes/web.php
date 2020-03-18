@@ -4,6 +4,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
+/* OAUTH */
+Route::get('/auth/redirect/{social}', 'SocialController@auth')->name('oauth');
+Route::get('/callback/{social}', 'SocialController@callback');
+
 //Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
 //Route::post('/login', 'Auth\LoginController@login');
 
@@ -26,6 +30,8 @@ Route::group([
     Route::get('/deleteUser/{user}', 'IndexController@deleteUser')->name('deleteUser');
     Route::get('/editUser/{user}', 'IndexController@editUser')->name('editUser');
     Route::post('/saveUser/{user}', 'IndexController@saveUser')->name('saveUser');
+    /* Parser */
+    Route::get('/parser', 'ParserController@index')->name('parser');
 });
 
 Route::group(

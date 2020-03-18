@@ -6,7 +6,8 @@
                 <a class="p-2 text-dark" href="{{ route('home') }}">Главная</a>
                 <a class="p-2 text-dark" href="{{ route('admin.admin') }}">Админка</a>
                 <a class="p-2 text-dark" href="{{ route('admin.news') }}">Редактирование новостей</a>
-                <a class="p-2 text-dark" href="{{ route('admin.test2') }}">Тест 2</a>
+                <a class="p-2 text-dark" href="{{ route('admin.parser') }}">Парсер</a>
+{{--                <a class="p-2 text-dark" href="{{ route('admin.test2') }}">Тест 2</a>--}}
             </nav>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
