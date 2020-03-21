@@ -15,7 +15,7 @@
             @else {{ 'http://placekitten.com/g/200/200' }}
             @endif" alt="placeholder">
             <h2>{{ $news->title }}</h2>
-            <p>{{ $news->text }}</p>
+            <p>{!! $news->text !!}</p>
         @else
             <br>Нет прав!
         @endif
