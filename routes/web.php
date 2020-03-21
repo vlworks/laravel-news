@@ -33,6 +33,7 @@ Route::group([
     /* Parser */
     Route::match(['get', 'post'],'/parser', 'ParserController@index')->name('parser');
     Route::get('/deleteResource/{resource}', 'ParserController@deleteResource')->name('deleteResource');
+    Route::get('/useParse', 'ParserController@useParse')->name('useParse');
 });
 
 Route::group(

@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
         <h2>Парсер</h2>
-        <a href="" class="btn btn-success">Запарсить новости на сайт</a>
+        <a href="{{ route('admin.useParse') }}" class="btn btn-success">Запарсить новости на сайт</a>
         <hr>
     </div>
     <div class="container">
