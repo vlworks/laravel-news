@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Jobs\NewsParsing;
 use App\News;
 use App\Resource;
 use App\Services\XMLParserService;
@@ -39,7 +40,8 @@ class ParserController extends Controller
             ->get();
 
         foreach ($link as $uri){
-            $data = $parser->saveNews($uri->url);
+            //$parser->saveNews($uri->url);
+            NewsParsing::dispatch($uri->url);
         }
         echo <<<HERE
             <p>Задачи для парсинга поставлены в очередь</p>
