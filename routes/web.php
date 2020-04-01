@@ -31,7 +31,9 @@ Route::group([
     Route::get('/editUser/{user}', 'IndexController@editUser')->name('editUser');
     Route::post('/saveUser/{user}', 'IndexController@saveUser')->name('saveUser');
     /* Parser */
-    Route::get('/parser', 'ParserController@index')->name('parser');
+    Route::match(['get', 'post'],'/parser', 'ParserController@index')->name('parser');
+    Route::get('/deleteResource/{resource}', 'ParserController@deleteResource')->name('deleteResource');
+    Route::get('/useParse', 'ParserController@useParse')->name('useParse');
 });
 
 Route::group(

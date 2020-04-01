@@ -3,50 +3,50 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Jobs\NewsParsing;
 use App\News;
+use App\Resource;
+use App\Services\XMLParserService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class ParserController extends Controller
 {
-    public function index(){
+    public function index(Request $request)
+    {
+        if($request->isMethod('post')){
+            $this->validate($request, Resource::rules(), [], Resource::attributeNames());
+            $resource = new Resource();
+            $resource->fill($request->all())->save();
+            $request->session()->flash('success', 'URL добавлен');
+        }
 
-        $xml = XmlParser::load('https://www.cbr-xml-daily.ru/daily_utf8.xml');
-        $data = $xml->parse([
-            'item' => [
-                'uses' => 'Valute[Name,Value]'
-        ]
-        ]);
-
-        $this->insertDB($data['item'], 'Валюты');
-        session()->get('success', 'Успешно добавлена 1 случайная строка из парсинга в новости Валюты');
         return view('admin.parser', [
-            'data' => $data['item'],
+            'resources' => Resource::all()
         ]);
     }
 
-    public function insertDB($data, $category){
-        $newCategory = Category::query()
-            ->where('category', $category)
-            ->first();
-        if (empty($newCategory)){
-            $newCategory = new Category();
-            $newCategory->fill([
-                'category' => 'Валюты',
-                'name' => 'valute'
-            ]);
-            $newCategory->save();
+    public function deleteResource(Resource $resource)
+    {
+        $resource->delete();
+        return redirect()->route('admin.parser')->with('success', 'URL удален');
+    }
+
+    public function useParse(XMLParserService $parser){
+        $link = Resource::query()
+            ->select('url')
+            ->get();
+
+        foreach ($link as $uri){
+            //$parser->saveNews($uri->url);
+            NewsParsing::dispatch($uri->url);
         }
+        echo <<<HERE
+            <p>Задачи для парсинга поставлены в очередь</p>
+            <a href="parser">Вернуться</a>
+HERE;
 
-        $rand = Rand(1, (count($data) - 1));
-
-        $news = new News();
-        $news->fill([
-            'title' => $data[$rand]['Name'],
-            'text' => $data[$rand]['Value'],
-            'category_id' => $newCategory->id
-        ]);
-        $news->save();
     }
 }

@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="text">Текст новости</label>
+                                        <label for="textEditor">Текст новости</label>
                                         @if ($errors->has('text'))
                                             <div class="alert alert-danger" role="alert">
                                                 @foreach ($errors->get('text') as $error)
@@ -108,8 +108,8 @@
                                                 @endforeach
                                             </div>
                                         @endif
-                                        <textarea name="text" rows="5" type="text" class="form-control" id="text" placeholder=""
-                                                  required="">{{ old('text') ?? $news->text}}</textarea>
+                                        <textarea name="text" rows="5" type="text" class="form-control" id="textEditor" placeholder=""
+                                                  required="">{!! old('text') ?? $news->text !!}</textarea>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5 mb-3">
@@ -165,4 +165,16 @@
         </div>
     </div>
 
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
+    <script>
+        CKEDITOR.replace('textEditor', options);
+    </script>
 @endsection
